@@ -36,7 +36,6 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 	@Override
 	public void addBooking(BookingDetail bookingDetail) {
 		//Implement this method
-		// TEST 123
 	}
 
 	@Override

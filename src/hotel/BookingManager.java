@@ -8,6 +8,7 @@ import java.util.Set;
 public class BookingManager {
 
 	private Room[] rooms;
+	private Set<BookingDetail> bookings;
 
 	public BookingManager() {
 		this.rooms = initializeRooms();
@@ -28,7 +29,7 @@ public class BookingManager {
 	}
 
 	public void addBooking(BookingDetail bookingDetail) {
-		//implement this method
+		this.bookings.add(bookingDetail) ;
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
