@@ -1,9 +1,7 @@
 package hotel;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class BookingManager {
@@ -25,8 +23,13 @@ public class BookingManager {
 	}
 
 	public boolean isRoomAvailable(Integer roomNumber, LocalDate date) {
-		//implement this method
-		return false;
+		boolean available = false;
+		Optional<Room> room = Arrays.stream(rooms).filter(r -> r.getRoomNumber().equals(roomNumber)).findFirst();
+		if (room.isPresent()){
+			List<BookingDetail> booking = room.get().getBookings();
+			available = booking.stream().anyMatch(b -> b.getDate().equals(date));
+		}
+		return available;
 	}
 
 	public void addBooking(BookingDetail bookingDetail) {
