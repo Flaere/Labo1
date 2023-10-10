@@ -34,8 +34,9 @@ public class BookingManager {
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
-		Set<Integer> allRooms = getAllRooms();
+		// filter the current booking based on this date
 		Set<BookingDetail> bookingsDate = bookings.stream().filter(booking -> !booking.getDate().equals(date)).collect(Collectors.toSet());
+		// collect all room numbers of this filter booking
 		return bookingsDate.stream().map(BookingDetail :: getRoomNumber).collect(Collectors.toSet());
 	}
 
