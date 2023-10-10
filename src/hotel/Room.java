@@ -1,7 +1,9 @@
 package hotel;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Room {
 
@@ -10,7 +12,7 @@ public class Room {
 
 	public Room(Integer roomNumber) {
 		this.roomNumber = roomNumber;
-		bookings = new ArrayList<BookingDetail>();
+		bookings = new ArrayList<>();
 	}
 
 	public Integer getRoomNumber() {
@@ -27,5 +29,10 @@ public class Room {
 
 	public void setBookings(List<BookingDetail> bookings) {
 		this.bookings = bookings;
+	}
+
+	public boolean hasBooked(LocalDate date) {
+		Optional<BookingDetail> booked = bookings.stream().filter(booking -> booking.getDate().equals(date)).findFirst();
+		return booked.isPresent();
 	}
 }

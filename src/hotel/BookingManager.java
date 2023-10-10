@@ -13,7 +13,7 @@ public class BookingManager {
 	}
 
 	public Set<Integer> getAllRooms() {
-		Set<Integer> allRooms = new HashSet<Integer>();
+		Set<Integer> allRooms = new HashSet<>();
 		Iterable<Room> roomIterator = Arrays.asList(rooms);
 		for (Room room : roomIterator) {
 			allRooms.add(room.getRoomNumber());
@@ -42,16 +42,8 @@ public class BookingManager {
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
-		return new HashSet<>();
-		/*
-		Set<BookingDetail> allRooms = Arrays.stream(rooms).map(Room :: getBookings).collect(Collectors.toSet());
-		allRooms.stream().filter(room -> room.)
-		Set<BookingDetail> bookingsDate = bookings.stream().filter(booking -> !booking.getDate().equals(date)).collect(Collectors.toSet());
-		// collect all room numbers of this filter booking
-		return bookingsDate.stream().map(BookingDetail :: getRoomNumber).collect(Collectors.toSet());
-		*/
+		return Arrays.stream(rooms).filter(room -> !room.hasBooked(date)).map(Room :: getRoomNumber).collect(Collectors.toSet());
 	}
-
 
 	private static Room[] initializeRooms() {
 		Room[] rooms = new Room[4];
