@@ -29,8 +29,7 @@ public class BookingClient extends AbstractScriptedSimpleTest {
 
 	@Override
 	public boolean isRoomAvailable(Integer roomNumber, LocalDate date) {
-		//Implement this method
-		return true;
+		return bm.isRoomAvailable(roomNumber, date);
 	}
 
 	@Override
