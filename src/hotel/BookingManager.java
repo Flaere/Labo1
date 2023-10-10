@@ -1,10 +1,14 @@
 package hotel;
 
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class BookingManager {
+public class BookingManager implements RemoteBooking{
 
 	private Room[] rooms;
 
@@ -43,6 +47,21 @@ public class BookingManager {
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
 		return Arrays.stream(rooms).filter(room -> !room.hasBooked(date)).map(Room :: getRoomNumber).collect(Collectors.toSet());
+	}
+
+	public static void main(String args[]){
+		try {
+			System.setProperty("java.rmi.server.hostname", "localhost");
+			LocateRegistry.createRegistry(8080);
+			BookingManager bm = new BookingManager();
+			RemoteBooking stub = (RemoteBooking) UnicastRemoteObject.exportObject(bm, 8080);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.bind("manager", stub);
+			System.out.println("Server Ready");
+		}catch (Exception e){
+			System.err.println("Server Exception:" + e.toString());
+			e.printStackTrace();
+		}
 	}
 
 	private static Room[] initializeRooms() {
