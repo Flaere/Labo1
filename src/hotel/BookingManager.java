@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BookingManager {
 
 	private Room[] rooms;
-	private Set<BookingDetail> bookings;
+	private Set<BookingDetail> bookings = new HashSet<>();
 
 	public BookingManager() {
 		this.rooms = initializeRooms();
@@ -33,8 +34,9 @@ public class BookingManager {
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
-		//implement this method
-		return null;
+		Set<Integer> allRooms = getAllRooms();
+		Set<BookingDetail> bookingsDate = bookings.stream().filter(booking -> !booking.getDate().equals(date)).collect(Collectors.toSet());
+		return bookingsDate.stream().map(BookingDetail :: getRoomNumber).collect(Collectors.toSet());
 	}
 
 	private static Room[] initializeRooms() {
