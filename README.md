@@ -19,6 +19,6 @@ through addBooking(BookingDetail bookingDetail).
 availability of each room separately. Therefore, implement a method to request the availability of
 all rooms of the hotel on a given date, using getAvailableRooms(LocalDate date).
 
-( TBA ) The hotel booking system may be used by a number of hotel staff at once so your implementation must be
+( Check ) The hotel booking system may be used by a number of hotel staff at once so your implementation must be
 thread-safe. In addition, efficiency is important for the hotel booking system, as such two bookings can be
 made concurrently as long as they are for different rooms.
