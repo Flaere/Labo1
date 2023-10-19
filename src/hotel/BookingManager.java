@@ -35,15 +35,15 @@ public class BookingManager implements RemoteBooking{
 	}
 
 	public void addBooking(BookingDetail bookingDetail) {
-		synchronized (bookingDetail) {
 			int roomNumber = bookingDetail.getRoomNumber();
 			Optional<Room> room = Arrays.stream(rooms).filter(r -> r.getRoomNumber().equals(roomNumber)).findFirst();
 			if (room.isPresent()){
-				List<BookingDetail> booking = room.get().getBookings();
-				booking.add(bookingDetail);
-				room.get().setBookings(booking);
+				synchronized (room.get()) {
+					List<BookingDetail> booking = room.get().getBookings();
+					booking.add(bookingDetail);
+					room.get().setBookings(booking);
+				}
 			}
-		}
 	}
 
 	public Set<Integer> getAvailableRooms(LocalDate date) {
